@@ -1,0 +1,6 @@
+{
+  "name": "Final Exam Revision Planner & Countdown",
+  "description": "An 83-day structured revision schedule and live countdown for the December 10th exams, featuring all revision phases and Google Sheets sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
