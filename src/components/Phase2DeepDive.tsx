@@ -47,13 +47,13 @@ export function Phase2DeepDive({
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-400 mb-2">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-400"></span>
-              PHASE 2: FIRST REVISION (SEPTEMBER 26 – OCTOBER 22)
+              PHASE 1: FIRST REVISION (SEPTEMBER 20 – OCTOBER 18) — STARTS TOMORROW
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
               The Most Critical Revision of Your Prep
             </h2>
             <p className="mt-1 text-sm text-slate-300 max-w-3xl">
-              Retaining the exact requested sequence: <strong className="text-white">Corporate Law → SFM → DT → SCM</strong>, ending with the <strong className="text-amber-400">Oct 22 Group III Mixed Test & Analysis Day</strong>.
+              Retaining the exact requested sequence starting tomorrow (Sept 20): <strong className="text-white">Corporate Law → SFM → DT → SCM</strong>, ending with the <strong className="text-amber-400">Oct 18 Group III Mixed Test & Analysis Day</strong>.
             </p>
           </div>
 

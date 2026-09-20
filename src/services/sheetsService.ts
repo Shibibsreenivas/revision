@@ -17,9 +17,9 @@ export async function exportRevisionPlanToGoogleSheets(
   }
 
   // 1. Prepare sheet data
-  // Sheet 1: 83-Day Journey & Phases
+  // Sheet 1: 81-Day Journey & Phases
   const roadmapRows: (string | number)[][] = [
-    ['83-DAY REVISION JOURNEY & EXAM COUNTDOWN (TARGET: DECEMBER 10TH)'],
+    ['81-DAY REVISION JOURNEY & EXAM COUNTDOWN (TARGET: DECEMBER 10TH)'],
     ['Motto: "WRITE WHAT YOU KNOW — No panic. No new material. You go in with the preparation built over 80+ days."'],
     [''],
     ['Phase ID', 'Phase Name', 'Dates', 'Days', 'Strategic Focus', 'Action Philosophy'],
@@ -32,7 +32,7 @@ export async function exportRevisionPlanToGoogleSheets(
       p.badge
     ]),
     [''],
-    ['PHASE 3 - SPEED & QUESTIONS ROTATION (Oct 23 - Nov 12)'],
+    ['PHASE 2 - SPEED & COMPRESSION ROTATION (Oct 19 - Nov 9)'],
     ['Dates', 'Days', 'Subject Code', 'Subject Name', 'Key Directive / Focus'],
     ...PHASE_3_SCHEDULE.map((p3) => [
       p3.dates,
@@ -42,7 +42,7 @@ export async function exportRevisionPlanToGoogleSheets(
       p3.focus
     ]),
     [''],
-    ['PHASE 4 - THIRD REVISION ROTATION (Nov 13 - Nov 29)'],
+    ['PHASE 3 - THIRD REVISION ROTATION (Nov 10 - Nov 29)'],
     ['Dates', 'Days', 'Subject Code', 'Subject Name', 'Study Rules'],
     ...PHASE_4_ROTATION.map((p4) => [
       p4.dates,
@@ -52,7 +52,7 @@ export async function exportRevisionPlanToGoogleSheets(
       'Use short notes, formula book, section notebook, mistake book & PYQs'
     ]),
     [''],
-    ['PHASE 5 - FINAL 10 DAYS SPRINT (Nov 30 - Dec 9)'],
+    ['PHASE 4 - FINAL 10 DAYS SPRINT (Nov 30 - Dec 9)'],
     ['Date', 'Subject', 'Focus Rule', 'Mindset'],
     ...PHASE_5_FINAL_10_DAYS.map((p5) => [
       p5.date,
@@ -64,10 +64,10 @@ export async function exportRevisionPlanToGoogleSheets(
     ['DECEMBER 10TH — EXAM DAY', 'WRITE WHAT YOU KNOW 🔥', 'Paper begins', 'Enter with full confidence and calmness']
   ];
 
-  // Sheet 2: Phase 2 Daily Protocol (First Revision)
+  // Sheet 2: Phase 1 Daily Protocol (First Revision)
   const phase2Rows: (string | number)[][] = [
-    ['PHASE 2: FIRST REVISION — HOURLY PROTOCOLS & CORE METHODOLOGY (Sept 26 - Oct 22)'],
-    ['This is your most important revision. Understanding + Rebuilding.'],
+    ['PHASE 1: FIRST REVISION — HOURLY PROTOCOLS & CORE METHODOLOGY (Sept 20 - Oct 18)'],
+    ['This is your most important revision starting tomorrow. Understanding + Rebuilding.'],
     [''],
     ['Subject', 'Dates', 'Duration', 'Daily Hours', 'Golden Directive', 'Deliverable / Output Notebook'],
     ...PHASE_2_SUBJECT_SCHEDULE.map((s) => [
@@ -91,7 +91,7 @@ export async function exportRevisionPlanToGoogleSheets(
       ])
     ),
     [''],
-    ['OCTOBER 22 — GROUP III TEST & BUFFER DAY ANALYSIS QUESTIONS'],
+    ['OCTOBER 18 — GROUP III TEST & BUFFER DAY ANALYSIS QUESTIONS'],
     ['Question 1: What did I forget?'],
     ['Question 2: Which chapters are weak?'],
     ['Question 3: Which formulas are weak?'],

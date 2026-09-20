@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FileSpreadsheet, X, CheckCircle2, ExternalLink, Loader2, AlertCircle, ShieldCheck } from 'lucide-react';
-import { User } from 'firebase/auth';
+import { User } from '../types';
 
 interface GoogleSheetsModalProps {
   isOpen: boolean;

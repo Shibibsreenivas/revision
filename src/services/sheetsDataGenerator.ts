@@ -3,9 +3,9 @@ import { SectionNoteEntry, MistakeEntry } from '../types';
 
 export function getRoadmapSheetData(): (string | number)[][] {
   return [
-    ['83-DAY MASTER REVISION JOURNEY & EXAM COUNTDOWN (TARGET: DECEMBER 10TH)'],
+    ['81-DAY MASTER REVISION JOURNEY & EXAM COUNTDOWN (TARGET: DECEMBER 10TH)'],
     ['Motto: "WRITE WHAT YOU KNOW — No panic. No new material. No \'I haven\'t studied enough.\' You go in with the preparation built over 80+ days."'],
-    ['Target Exam Date:', '2026-12-10 09:00:00', 'Total Duration:', '83 Days'],
+    ['Target Exam Date:', '2026-12-10 09:00:00', 'Total Duration:', '81 Days (Sept 20 – Dec 10)'],
     [''],
     ['Phase ID', 'Phase Name', 'Dates', 'Days', 'Strategic Focus', 'Action Philosophy'],
     ...PHASES.map((p) => [
@@ -17,7 +17,7 @@ export function getRoadmapSheetData(): (string | number)[][] {
       p.badge
     ]),
     [''],
-    ['PHASE 3 - SPEED & QUESTIONS ROTATION (Oct 23 - Nov 12)'],
+    ['PHASE 2 - SPEED & COMPRESSION ROTATION (Oct 19 - Nov 9)'],
     ['Dates', 'Days', 'Subject Code', 'Subject Name', 'Key Directive / Focus'],
     ...PHASE_3_SCHEDULE.map((p3) => [
       p3.dates,
@@ -27,7 +27,7 @@ export function getRoadmapSheetData(): (string | number)[][] {
       p3.focus
     ]),
     [''],
-    ['PHASE 4 - THIRD REVISION ROTATION (Nov 13 - Nov 29)'],
+    ['PHASE 3 - THIRD REVISION ROTATION (Nov 10 - Nov 29)'],
     ['Dates', 'Days', 'Subject Code', 'Subject Name', 'Study Rules & Materials'],
     ...PHASE_4_ROTATION.map((p4) => [
       p4.dates,
@@ -37,7 +37,7 @@ export function getRoadmapSheetData(): (string | number)[][] {
       'Use short notes, formula book, section notebook, mistake book & PYQs'
     ]),
     [''],
-    ['PHASE 5 - FINAL 10 DAYS SPRINT (Nov 30 - Dec 9)'],
+    ['PHASE 4 - FINAL 10 DAYS SPRINT (Nov 30 - Dec 9)'],
     ['Date', 'Subject', 'Focus Rule', 'Mindset'],
     ...PHASE_5_FINAL_10_DAYS.map((p5) => [
       p5.date,
@@ -52,8 +52,8 @@ export function getRoadmapSheetData(): (string | number)[][] {
 
 export function getPhase2ProtocolSheetData(): (string | number)[][] {
   return [
-    ['PHASE 2: FIRST REVISION — HOURLY PROTOCOLS & CORE METHODOLOGY (Sept 26 - Oct 22)'],
-    ['This is your most important revision. Understanding + Rebuilding.'],
+    ['PHASE 1: FIRST REVISION — HOURLY PROTOCOLS & CORE METHODOLOGY (Sept 20 - Oct 18)'],
+    ['This is your most important revision starting tomorrow. Understanding + Rebuilding.'],
     ['Order: Corporate Law → SFM → DT → SCM → Group III Test Day'],
     [''],
     ['Subject', 'Dates', 'Duration', 'Daily Target Hours', 'Golden Directive', 'Deliverable / Output Notebook'],
@@ -78,7 +78,7 @@ export function getPhase2ProtocolSheetData(): (string | number)[][] {
       ])
     ),
     [''],
-    ['OCTOBER 22 — GROUP III TEST & BUFFER DAY ANALYSIS QUESTIONS'],
+    ['OCTOBER 18 — GROUP III TEST & BUFFER DAY ANALYSIS QUESTIONS'],
     ['Question 1: What did I forget?'],
     ['Question 2: Which chapters are weak?'],
     ['Question 3: Which formulas are weak?'],

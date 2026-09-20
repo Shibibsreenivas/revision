@@ -49,7 +49,7 @@ export function DownloadModal({
 
   const handleDownloadCompleteWorkbook = () => {
     downloadCompleteWorkbookCsv(
-      'CMA_Final_83_Day_Complete_Revision_Workbook.csv',
+      'CMA_Final_81_Day_Complete_Revision_Workbook.csv',
       progressList,
       studyLogs,
       sectionNotes,
@@ -105,15 +105,15 @@ export function DownloadModal({
     },
     {
       id: 'roadmap' as const,
-      name: '83-Day Master Roadmap',
-      desc: 'All 5 revision phases from Sept 18 to Dec 10 exam sprint.',
-      filename: '83_Day_Master_Roadmap.csv'
+      name: '81-Day Master Roadmap',
+      desc: 'All 5 revision phases from Sept 20 to Dec 10 exam sprint.',
+      filename: '81_Day_Master_Roadmap.csv'
     },
     {
       id: 'phase2' as const,
-      name: 'Phase 2 Daily Protocols (CLC → SFM → DT → SCM)',
+      name: 'Phase 1 Daily Protocols (Sept 20 – Oct 18)',
       desc: 'Hourly breakdown: detailed revision, recall, MCQs, past questions.',
-      filename: 'Phase_2_Hourly_Protocols.csv'
+      filename: 'Phase_1_Hourly_Protocols.csv'
     },
     {
       id: 'sections' as const,
@@ -160,10 +160,10 @@ export function DownloadModal({
               <Sparkles className="h-3 w-3" /> Recommended
             </span>
             <h4 className="text-base font-bold text-white">
-              Complete 83-Day Revision Workbook (.CSV)
+              Complete 81-Day Revision Workbook (.CSV)
             </h4>
             <p className="text-xs text-slate-300">
-              Includes all 5 sheets (Roadmap + Tracker + Phase 2 Protocols + Section Notebook + Mistake Book) in one master spreadsheet file.
+              Includes all 5 sheets (Roadmap + Tracker + Phase 1 Protocols + Section Notebook + Mistake Book) in one master spreadsheet file.
             </p>
           </div>
 

@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { User } from 'firebase/auth';
+import { User } from './types';
 import { 
   FileSpreadsheet, 
   Layers, 
@@ -14,10 +14,13 @@ import {
   Clock,
   SlidersHorizontal,
   BookOpen,
-  Download
+  Download,
+  MapPin,
+  Calendar
 } from 'lucide-react';
 
 import { ProminentCountdownHeader } from './components/ProminentCountdownHeader';
+import { FullJourneyRoadmap } from './components/FullJourneyRoadmap';
 import { GoogleSheetAppView } from './components/GoogleSheetAppView';
 import { GoogleSheetsModal } from './components/GoogleSheetsModal';
 import { DownloadModal } from './components/DownloadModal';
@@ -38,12 +41,23 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [authToken, setAuthToken] = useState<string | null>(null);
 
-  // View state: 'sheet' | 'matrix' | 'interactive'
-  const [viewMode, setViewMode] = useState<'sheet' | 'matrix' | 'interactive'>('sheet');
+  // View state: 'roadmap' | 'sheet' | 'matrix' | 'interactive'
+  const [viewMode, setViewMode] = useState<'roadmap' | 'sheet' | 'matrix' | 'interactive'>('roadmap');
+  const [activePhaseId, setActivePhaseId] = useState<number>(1);
 
-  // Revision Progress State (persisted)
+  const CURRENT_REVISION_CYCLE = '2026-09-20-day1-reset';
+
+  // Revision Progress State (persisted with automatic reset for Sept 20 start)
   const [progressList, setProgressList] = useState<SubjectProgress[]>(() => {
     try {
+      const cycle = localStorage.getItem('cma_revision_cycle');
+      if (cycle !== CURRENT_REVISION_CYCLE) {
+        localStorage.setItem('cma_revision_cycle', CURRENT_REVISION_CYCLE);
+        localStorage.setItem('cma_subject_progress', JSON.stringify(DEFAULT_SUBJECT_PROGRESS));
+        localStorage.removeItem('cma_study_logs');
+        localStorage.removeItem('cma_completed_tasks');
+        return DEFAULT_SUBJECT_PROGRESS;
+      }
       const saved = localStorage.getItem('cma_subject_progress');
       return saved ? JSON.parse(saved) : DEFAULT_SUBJECT_PROGRESS;
     } catch {
@@ -54,16 +68,10 @@ export default function App() {
   // Daily Study Logs (persisted)
   const [studyLogs, setStudyLogs] = useState<StudyLogRecord[]>(() => {
     try {
+      const cycle = localStorage.getItem('cma_revision_cycle');
+      if (cycle !== CURRENT_REVISION_CYCLE) return [];
       const saved = localStorage.getItem('cma_study_logs');
-      return saved ? JSON.parse(saved) : [
-        {
-          date: '2026-09-18',
-          completedHours: 9,
-          targetHours: 10,
-          completedTasks: ['CLC Sec 135 & 149 recall', 'SFM Forex hedging problems', 'DT Sec 194Q TDS rules'],
-          reflection: 'Good speed on calculation problems. Need to drill section numbers for Independent Directors.'
-        }
-      ];
+      return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
     }
@@ -90,6 +98,8 @@ export default function App() {
 
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>(() => {
     try {
+      const cycle = localStorage.getItem('cma_revision_cycle');
+      if (cycle !== CURRENT_REVISION_CYCLE) return {};
       const saved = localStorage.getItem('cma_completed_tasks');
       return saved ? JSON.parse(saved) : {};
     } catch {
@@ -102,7 +112,7 @@ export default function App() {
   // Sheets modal & status
   const [isSheetsModalOpen, setIsSheetsModalOpen] = useState(false);
   const [isTrackerModalOpen, setIsTrackerModalOpen] = useState(false);
-  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(true);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isTestAnalysisModalOpen, setIsTestAnalysisModalOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [exportResult, setExportResult] = useState<{ spreadsheetId: string; spreadsheetUrl: string } | null>(null);
@@ -149,7 +159,7 @@ export default function App() {
     }
   }, [completedTasks]);
 
-  // Firebase auth initialization
+  // Candidate profile initialization
   useEffect(() => {
     const unsubscribe = initAuth(
       (currentUser, token) => {
@@ -162,25 +172,6 @@ export default function App() {
       }
     );
     return () => unsubscribe();
-  }, []);
-
-  // Auto-download master workbook on prompt
-  useEffect(() => {
-    try {
-      const hasDownloaded = sessionStorage.getItem('cma_has_downloaded_workbook');
-      if (!hasDownloaded) {
-        sessionStorage.setItem('cma_has_downloaded_workbook', 'true');
-        downloadCompleteWorkbookCsv(
-          'CMA_Final_83_Day_Complete_Revision_Workbook.csv',
-          progressList,
-          studyLogs,
-          sectionNotes,
-          mistakes
-        );
-      }
-    } catch (e) {
-      console.warn('Auto download error', e);
-    }
   }, []);
 
   const handleSignIn = async () => {
@@ -241,6 +232,21 @@ export default function App() {
     setStudyLogs((prev) => [newLog, ...prev]);
   };
 
+  const handleResetAll = () => {
+    try {
+      localStorage.setItem('cma_revision_cycle', CURRENT_REVISION_CYCLE);
+      localStorage.setItem('cma_subject_progress', JSON.stringify(DEFAULT_SUBJECT_PROGRESS));
+      localStorage.removeItem('cma_study_logs');
+      localStorage.removeItem('cma_completed_tasks');
+    } catch (e) {
+      console.warn('LocalStorage clear failed', e);
+    }
+
+    setProgressList(DEFAULT_SUBJECT_PROGRESS);
+    setStudyLogs([]);
+    setCompletedTasks({});
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
       {/* 1. PROMINENT LIVE COUNTDOWN TIMER IN THE HEADER */}
@@ -255,6 +261,7 @@ export default function App() {
         }}
         onOpenTrackerModal={() => setIsTrackerModalOpen(true)}
         onOpenDownloadModal={() => setIsDownloadModalOpen(true)}
+        onResetAll={handleResetAll}
         spreadsheetUrl={exportResult?.spreadsheetUrl || null}
         progressList={progressList}
       />
@@ -265,12 +272,24 @@ export default function App() {
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-semibold text-slate-400 mr-1">View Mode:</span>
-            <div className="flex items-center rounded-xl bg-slate-900 border border-slate-800 p-1 text-xs font-semibold">
+            <div className="flex flex-wrap items-center rounded-xl bg-slate-900 border border-slate-800 p-1 text-xs font-semibold">
+              <button
+                onClick={() => setViewMode('roadmap')}
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all cursor-pointer ${
+                  viewMode === 'roadmap'
+                    ? 'bg-blue-600 text-white shadow font-bold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <MapPin className="h-4 w-4" />
+                <span>81-Day Plan & Roadmap</span>
+              </button>
+
               <button
                 onClick={() => setViewMode('sheet')}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all cursor-pointer ${
                   viewMode === 'sheet'
-                    ? 'bg-emerald-600 text-white shadow'
+                    ? 'bg-emerald-600 text-white shadow font-bold'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -294,12 +313,12 @@ export default function App() {
                 onClick={() => setViewMode('interactive')}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-all cursor-pointer ${
                   viewMode === 'interactive'
-                    ? 'bg-blue-600 text-white shadow'
+                    ? 'bg-purple-600 text-white shadow font-bold'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
                 <Layers className="h-4 w-4" />
-                <span>Phase 2 Deep Dive & Notebooks</span>
+                <span>Phase 1 Protocols & Notebooks</span>
               </button>
             </div>
           </div>
@@ -337,6 +356,56 @@ export default function App() {
         </div>
 
         {/* Dynamic View Display */}
+        {viewMode === 'roadmap' && (
+          <div className="space-y-6">
+            {/* Day 1 Starting Tomorrow Briefing Banner */}
+            <div className="rounded-2xl border border-blue-500/40 bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/40 p-5 shadow-lg">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1 rounded bg-blue-500/20 border border-blue-500/40 px-2 py-0.5 text-[11px] font-mono font-bold text-blue-300">
+                      <Calendar className="h-3 w-3" /> Starts Tomorrow • Sept 20, 2026
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded bg-amber-500/20 px-2 py-0.5 text-[11px] font-mono font-bold text-amber-300">
+                      Day 1 of 81
+                    </span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black text-white">
+                    Phase 1: Corporate Laws & Compliance (Sept 20 – Sept 26)
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 max-w-3xl">
+                    Starting Day 1 tomorrow with <span className="text-amber-300 font-semibold">9 hours/day target</span>. 
+                    Build your <span className="text-emerald-300 font-semibold">Section Notebook</span> using the 5-Points Framework (Provision → Conditions → Exceptions → Penalty → Case Law) and complete past exam questions.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={() => setViewMode('interactive')}
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 px-4 py-2.5 text-xs font-bold text-white transition-all shadow-md shadow-blue-600/30 cursor-pointer"
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    <span>Hourly Protocols</span>
+                  </button>
+                  <button
+                    onClick={() => setViewMode('sheet')}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 px-4 py-2.5 text-xs font-bold text-slate-200 transition-all cursor-pointer"
+                  >
+                    <FileSpreadsheet className="h-4 w-4 text-emerald-400" />
+                    <span>Sheet Grid</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Full Journey Interactive Text Roadmap */}
+            <FullJourneyRoadmap
+              activePhaseId={activePhaseId}
+              onSelectPhase={setActivePhaseId}
+              onJumpToPhase2={() => setViewMode('interactive')}
+            />
+          </div>
+        )}
+
         {viewMode === 'sheet' && (
           <GoogleSheetAppView
             user={user}

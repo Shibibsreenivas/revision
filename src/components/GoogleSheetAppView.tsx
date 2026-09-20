@@ -15,7 +15,7 @@ import {
   Share2,
   Table
 } from 'lucide-react';
-import { User } from 'firebase/auth';
+import { User } from '../types';
 import { 
   getRoadmapSheetData, 
   getPhase2ProtocolSheetData, 
@@ -131,7 +131,7 @@ export function GoogleSheetAppView({
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-sm font-bold text-white tracking-tight">
-                CMA Final 83-Day Revision Plan & Countdown (Dec 10 Exam)
+                CMA Final 81-Day Revision Plan & Countdown (Dec 10 Exam)
               </h1>
               <span className="rounded bg-emerald-500/20 px-1.5 py-0.2 text-[10px] font-bold text-emerald-300 border border-emerald-500/30">
                 Google Sheet
@@ -350,7 +350,7 @@ export function GoogleSheetAppView({
             }`}
           >
             <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-            <span>83-Day Master Roadmap</span>
+            <span>81-Day Master Roadmap</span>
           </button>
 
           <button
@@ -362,7 +362,7 @@ export function GoogleSheetAppView({
             }`}
           >
             <span className="h-2 w-2 rounded-full bg-blue-500"></span>
-            <span>Phase 2 Daily Protocol (CLC→SFM→DT→SCM)</span>
+            <span>Phase 1 Daily Protocol (CLC→SFM→DT→SCM)</span>
           </button>
 
           <button

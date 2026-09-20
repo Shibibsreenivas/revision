@@ -1,3 +1,10 @@
+export interface User {
+  uid: string;
+  displayName: string | null;
+  email: string | null;
+  photoURL?: string | null;
+}
+
 export type SubjectId = 
   | 'CLC' // Corporate Laws
   | 'SFM' // Strategic Financial Management

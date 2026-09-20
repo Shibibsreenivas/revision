@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { 
   PHASES, 
+  PHASE_2_SUBJECT_SCHEDULE,
   PHASE_3_SCHEDULE, 
   PHASE_4_ROTATION, 
   PHASE_5_FINAL_10_DAYS, 
@@ -8,7 +9,7 @@ import {
   SUBJECTS_MAP 
 } from '../data/scheduleData';
 import { SubjectId } from '../types';
-import { Flame, CheckCircle, Calendar, Clock, Sparkles, BookOpen, ShieldAlert } from 'lucide-react';
+import { Flame, CheckCircle, Calendar, Clock, Sparkles, BookOpen, ShieldAlert, ArrowRight } from 'lucide-react';
 
 interface FullJourneyRoadmapProps {
   activePhaseId: number;
@@ -21,7 +22,7 @@ export function FullJourneyRoadmap({
   onSelectPhase,
   onJumpToPhase2
 }: FullJourneyRoadmapProps) {
-  const currentPhase = PHASES.find((p) => p.id === activePhaseId) || PHASES[1];
+  const currentPhase = PHASES.find((p) => p.id === activePhaseId) || PHASES[0];
 
   return (
     <div className="space-y-8">
@@ -30,13 +31,13 @@ export function FullJourneyRoadmap({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-              The 83-Day Master Path
+              The 81-Day Master Revision Path
             </span>
             <h2 className="text-2xl font-extrabold text-white">
-              From Syllabus Finish to December 10 Exam Mode
+              Starting Tomorrow (Sept 20) to December 10 Exam Mode
             </h2>
             <p className="mt-1 text-sm text-slate-300">
-              A scientifically phased revision cycle moving from deep understanding to compression, exam-readiness, and rapid recall.
+              A scientifically phased 4-cycle revision roadmap moving from deep understanding to compression, exam-readiness, and rapid recall.
             </p>
           </div>
           <button
@@ -44,12 +45,12 @@ export function FullJourneyRoadmap({
             className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/20 cursor-pointer self-start"
           >
             <BookOpen className="h-4 w-4" />
-            <span>View Phase 2 Daily Routines</span>
+            <span>View First Revision Daily Protocols</span>
           </button>
         </div>
 
         {/* 5-Phase Milestone Chain */}
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {PHASES.map((p) => {
             const isSelected = p.id === activePhaseId;
             return (
@@ -79,24 +80,67 @@ export function FullJourneyRoadmap({
         </div>
       </div>
 
-      {/* Deep views for Phase 3, 4, 5, or 6 */}
-      {activePhaseId === 3 && (
+      {/* Deep views for Phase 1 */}
+      {activePhaseId === 1 && (
+        <div className="rounded-2xl border border-blue-500/30 bg-slate-900/90 p-6 shadow-xl space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+                September 20 – October 18 (29 Days) — Starts Tomorrow
+              </span>
+              <h3 className="text-2xl font-extrabold text-white">
+                Phase 1: First Revision — Deep Understanding & Core Mastery
+              </h3>
+              <p className="text-sm text-slate-300 mt-1">
+                Your most important revision starting tomorrow. Understanding + Rebuilding Group III in depth.
+              </p>
+            </div>
+            <button
+              onClick={onJumpToPhase2}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 px-3 py-1.5 text-xs font-bold text-white transition-colors cursor-pointer self-start"
+            >
+              <span>Open Hourly Breakdown</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {PHASE_2_SUBJECT_SCHEDULE.map((s, idx) => (
+              <div key={idx} className="rounded-xl border border-slate-800 bg-slate-950/70 p-4 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-mono font-bold text-blue-400">{s.dateRange}</span>
+                  <span className="rounded bg-slate-800 px-2 py-0.5 font-bold text-slate-300 text-[11px]">
+                    {s.days} {s.days === 1 ? 'Day' : 'Days'}
+                  </span>
+                </div>
+                <h4 className="text-base font-bold text-white">{s.title}</h4>
+                <p className="text-xs text-amber-300/90 font-medium">Daily: {s.dailyHours}</p>
+                <p className="text-xs text-slate-400 leading-relaxed italic border-t border-slate-800/80 pt-2">
+                  &ldquo;{s.goldenRule}&rdquo;
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Deep views for Phase 2 */}
+      {activePhaseId === 2 && (
         <div className="rounded-2xl border border-emerald-500/30 bg-slate-900/90 p-6 shadow-xl space-y-6">
           <div className="border-b border-slate-800 pb-4">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-              October 23 – November 12 (21 Days)
+              October 19 – November 9 (22 Days)
             </span>
             <h3 className="text-2xl font-extrabold text-white">
-              Phase 3: Second Revision — Compression + Problem Solving
+              Phase 2: Second Revision — Compression + Speed
             </h3>
             <p className="text-sm text-slate-300 mt-1">
-              &ldquo;Now the revision becomes faster. You should NOT spend the same amount of time as Revision 1.&rdquo;
+              &ldquo;Now revision accelerates. High-speed problem drilling across Group III and Group IV subjects.&rdquo;
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {PHASE_3_SCHEDULE.map((item, idx) => {
-              const meta = SUBJECTS_MAP[item.subject as SubjectId];
               return (
                 <div key={idx} className="rounded-xl border border-slate-800 bg-slate-950/70 p-4 hover:border-slate-700 transition-colors">
                   <div className="flex items-center justify-between text-xs mb-2">
@@ -114,17 +158,18 @@ export function FullJourneyRoadmap({
         </div>
       )}
 
-      {activePhaseId === 4 && (
+      {/* Deep views for Phase 3 */}
+      {activePhaseId === 3 && (
         <div className="rounded-2xl border border-amber-500/30 bg-slate-900/90 p-6 shadow-xl space-y-6">
           <div className="border-b border-slate-800 pb-4">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-              November 13 – November 29 (17 Days)
+              November 10 – November 29 (20 Days)
             </span>
             <h3 className="text-2xl font-extrabold text-white">
-              Phase 4: Third Revision — Exam-Ready Mode
+              Phase 3: Third Revision — Exam-Ready Mode
             </h3>
             <p className="text-sm text-slate-300 mt-1">
-              &ldquo;This is where you start becoming exam-ready. You should no longer be studying every line.&rdquo;
+              &ldquo;This is where you start becoming exam-ready. Rely on short notes, formula book, mistake book & simulated PYQs.&rdquo;
             </p>
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               <span className="bg-amber-500/10 border border-amber-500/20 text-amber-300 px-2.5 py-1 rounded-md font-medium">Use Short Notes</span>
@@ -160,14 +205,15 @@ export function FullJourneyRoadmap({
         </div>
       )}
 
-      {activePhaseId === 5 && (
+      {/* Deep views for Phase 4 */}
+      {activePhaseId === 4 && (
         <div className="rounded-2xl border border-purple-500/30 bg-slate-900/90 p-6 shadow-xl space-y-6">
           <div className="border-b border-slate-800 pb-4">
             <span className="text-xs font-bold uppercase tracking-wider text-purple-400">
               November 30 – December 9 (Final 10 Days)
             </span>
             <h3 className="text-2xl font-extrabold text-white">
-              Phase 5: The Final 10-Day Rapid Sprint
+              Phase 4: The Final 10-Day Rapid Sprint
             </h3>
             <p className="text-sm text-slate-300 mt-1">
               &ldquo;This is NOT the time to learn new chapters. Your brain should now be operating on: <strong>Recall → Solve → Correct → Recall again.</strong>&rdquo;
@@ -189,7 +235,8 @@ export function FullJourneyRoadmap({
         </div>
       )}
 
-      {activePhaseId === 6 && (
+      {/* Deep views for Phase 5 */}
+      {activePhaseId === 5 && (
         <div className="rounded-2xl border border-rose-500/40 bg-gradient-to-br from-slate-900 via-rose-950/30 to-slate-950 p-8 shadow-2xl space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-500/20 border border-rose-500/40 px-3 py-1 text-xs font-bold text-rose-300">

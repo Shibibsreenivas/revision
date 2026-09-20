@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { User } from 'firebase/auth';
+import { User } from '../types';
 import { 
   Flame, 
   Calendar, 
@@ -69,14 +69,14 @@ export function CountdownHeader({
     return () => clearInterval(interval);
   }, []);
 
-  // Compute 83-day progress
-  // Journey start: Sept 18, 2026. Target: Dec 10, 2026
-  const startDate = new Date('2026-09-18T00:00:00').getTime();
+  // Compute progress
+  // Journey start: Sept 20, 2026. Target: Dec 10, 2026
+  const startDate = new Date('2026-09-20T00:00:00').getTime();
   const endDate = targetDate.getTime();
   const nowTime = new Date().getTime();
   const totalJourneyTime = endDate - startDate;
   const elapsedJourneyTime = Math.max(0, Math.min(nowTime - startDate, totalJourneyTime));
-  const progressPercent = Math.round((elapsedJourneyTime / totalJourneyTime) * 100);
+  const progressPercent = Math.min(100, Math.max(0, Math.round((elapsedJourneyTime / totalJourneyTime) * 100)));
 
   return (
     <header className="relative overflow-hidden border-b border-slate-800 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 px-4 py-8 sm:px-8 lg:px-12">

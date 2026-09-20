@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { User } from 'firebase/auth';
+import { User } from '../types';
 import { 
   Flame, 
   Clock, 
@@ -13,7 +13,8 @@ import {
   ShieldCheck,
   TrendingUp,
   Award,
-  Download
+  Download,
+  RotateCcw
 } from 'lucide-react';
 import { SubjectProgress } from '../types';
 
@@ -24,6 +25,7 @@ interface ProminentCountdownHeaderProps {
   onOpenExportModal: () => void;
   onOpenTrackerModal: () => void;
   onOpenDownloadModal: () => void;
+  onResetAll?: () => void;
   spreadsheetUrl: string | null;
   progressList: SubjectProgress[];
 }
@@ -35,6 +37,7 @@ export function ProminentCountdownHeader({
   onOpenExportModal,
   onOpenTrackerModal,
   onOpenDownloadModal,
+  onResetAll,
   spreadsheetUrl,
   progressList
 }: ProminentCountdownHeaderProps) {
@@ -72,13 +75,13 @@ export function ProminentCountdownHeader({
     return () => clearInterval(interval);
   }, []);
 
-  // Compute 83-day timeline progress
-  const startDate = new Date('2026-09-18T00:00:00').getTime();
+  // Compute timeline progress (Starting Sept 20, 2026 -> Target Dec 10, 2026)
+  const startDate = new Date('2026-09-20T00:00:00').getTime();
   const endDate = targetDate.getTime();
   const nowTime = new Date().getTime();
   const totalJourneyTime = endDate - startDate;
   const elapsedJourneyTime = Math.max(0, Math.min(nowTime - startDate, totalJourneyTime));
-  const timelineProgressPercent = Math.min(100, Math.max(1, Math.round((elapsedJourneyTime / totalJourneyTime) * 100)));
+  const timelineProgressPercent = Math.min(100, Math.max(0, Math.round((elapsedJourneyTime / totalJourneyTime) * 100)));
 
   // Compute revision metrics
   const totalHoursLogged = progressList.reduce((acc, p) => acc + p.hoursCompleted, 0);
@@ -103,7 +106,7 @@ export function ProminentCountdownHeader({
             </span>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-                83-Day Strategic Blueprint
+                81-Day Revision Blueprint
               </span>
               <span className="rounded bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 text-[10px] font-semibold text-blue-300">
                 CMA Final Group III & IV
@@ -129,6 +132,18 @@ export function ProminentCountdownHeader({
               <SlidersHorizontal className="h-3.5 w-3.5" />
               <span>Track & Update Revision</span>
             </button>
+
+            {/* Reset All / Fresh Start Button */}
+            {onResetAll && (
+              <button
+                onClick={onResetAll}
+                title="Reset all trackers to Day 1 fresh starting state for tomorrow"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700/80 px-2.5 py-1.5 text-xs font-medium text-slate-300 hover:text-amber-300 transition-colors cursor-pointer"
+              >
+                <RotateCcw className="h-3.5 w-3.5 text-amber-400" />
+                <span>Reset All (Start Fresh)</span>
+              </button>
+            )}
 
             {/* Google Sheets button */}
             {spreadsheetUrl ? (
@@ -196,37 +211,45 @@ export function ProminentCountdownHeader({
             </h1>
 
             <p className="text-sm sm:text-base font-medium text-slate-300">
-              <strong className="text-amber-400">&ldquo;WRITE WHAT YOU KNOW.&rdquo;</strong> No panic. No new material. No &ldquo;I haven&apos;t studied enough.&rdquo; You go in with the preparation built over these 83 days.
+              <strong className="text-amber-400">&ldquo;WRITE WHAT YOU KNOW.&rdquo;</strong> No panic. No new material. No &ldquo;I haven&apos;t studied enough.&rdquo; You go in with the preparation built over these 81 days of revision.
             </p>
 
             {/* Quick Metrics Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1">
               <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-2.5">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Revision Done</span>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Revision Done</span>
+                  <span className="text-[10px] font-mono font-bold text-amber-400">{hoursPercent}%</span>
+                </div>
                 <span className="text-sm sm:text-base font-extrabold text-amber-400 font-mono">
                   {totalHoursLogged} / {totalHoursTarget} hrs
                 </span>
                 <div className="w-full bg-slate-800 h-1.5 rounded-full mt-1.5 overflow-hidden">
-                  <div className="bg-amber-500 h-full rounded-full transition-all" style={{ width: `${hoursPercent}%` }}></div>
+                  <div className="bg-amber-500 h-full rounded-full transition-all duration-300" style={{ width: `${hoursPercent}%` }}></div>
                 </div>
               </div>
 
               <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-2.5">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Readiness</span>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Readiness</span>
+                  <span className="text-[10px] font-semibold text-emerald-400">
+                    {avgConfidence > 0 ? `${avgConfidence}%` : 'Starting Day 1'}
+                  </span>
+                </div>
                 <span className="text-sm sm:text-base font-extrabold text-emerald-400 font-mono">
                   {avgConfidence}% Avg
                 </span>
                 <div className="w-full bg-slate-800 h-1.5 rounded-full mt-1.5 overflow-hidden">
-                  <div className="bg-emerald-500 h-full rounded-full transition-all" style={{ width: `${avgConfidence}%` }}></div>
+                  <div className="bg-emerald-500 h-full rounded-full transition-all duration-300" style={{ width: `${avgConfidence}%` }}></div>
                 </div>
               </div>
 
               <div className="col-span-2 sm:col-span-1 rounded-xl border border-slate-800 bg-slate-900/80 p-2.5">
                 <span className="text-[10px] uppercase font-bold text-slate-400 block">Active Phase</span>
                 <span className="text-xs sm:text-sm font-bold text-blue-300 truncate block">
-                  Phase 2 (Sept 26)
+                  Phase 1 (Starts Tomorrow)
                 </span>
-                <span className="text-[10px] text-slate-400 font-mono block mt-1">CLC → SFM → DT → SCM</span>
+                <span className="text-[10px] text-slate-400 font-mono block mt-1">CLC: Sept 20 – Sept 26</span>
               </div>
             </div>
           </div>
@@ -293,11 +316,13 @@ export function ProminentCountdownHeader({
                 </div>
               </div>
 
-              {/* 83-Day Timeline Progress Bar */}
+              {/* 81-Day Timeline Progress Bar */}
               <div className="mt-4 pt-3 border-t border-slate-800/80">
                 <div className="flex justify-between text-xs text-slate-400 mb-1.5 font-mono">
-                  <span>83-Day Path (Sept 18 → Dec 10)</span>
-                  <span className="text-amber-400 font-bold">{timelineProgressPercent}% Elapsed</span>
+                  <span>81-Day Revision Path (Sept 20 → Dec 10)</span>
+                  <span className="text-amber-400 font-bold">
+                    {timelineProgressPercent > 0 ? `${timelineProgressPercent}% Elapsed` : 'Starts Tomorrow (0%)'}
+                  </span>
                 </div>
                 <div className="w-full bg-slate-800/80 h-2 rounded-full overflow-hidden">
                   <div 

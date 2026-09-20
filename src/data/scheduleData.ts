@@ -150,61 +150,50 @@ export interface PhaseInfo {
 export const PHASES: PhaseInfo[] = [
   {
     id: 1,
-    name: 'Phase 1: Finish Syllabus',
-    subTitle: 'Sept 18 – Sept 25 (8 Days)',
-    startDate: '2026-09-18',
-    endDate: '2026-09-25',
-    daysCount: 8,
-    focus: 'Finish remaining chapters, seal loose ends, and prepare notebooks for revision.',
-    color: 'from-slate-600 to-slate-800',
-    badge: 'Foundation'
+    name: 'Phase 1: First Revision (Deep Mastery & Core Focus)',
+    subTitle: 'Sept 20 – Oct 18 (29 Days)',
+    startDate: '2026-09-20',
+    endDate: '2026-10-18',
+    daysCount: 29,
+    focus: 'Revision starts tomorrow! Build deep conceptual mastery across Group III: CLC → SFM → DT → SCM, finishing with the full Group III Diagnostic Test.',
+    color: 'from-blue-600 to-indigo-800',
+    badge: 'Core Mastery'
   },
   {
     id: 2,
-    name: 'Phase 2: First Revision (Core Focus)',
-    subTitle: 'Sept 26 – Oct 22 (27 Days)',
-    startDate: '2026-09-26',
-    endDate: '2026-10-22',
-    daysCount: 27,
-    focus: 'Your most important revision. Build strong understanding: CLC → SFM → DT → SCM + Group III Test.',
-    color: 'from-blue-600 to-indigo-800',
-    badge: 'Deep Understanding'
-  },
-  {
-    id: 3,
-    name: 'Phase 3: Second Revision',
-    subTitle: 'Oct 23 – Nov 12 (21 Days)',
-    startDate: '2026-10-23',
-    endDate: '2026-11-12',
-    daysCount: 21,
-    focus: 'Compression + problem solving. Speed revision across Group III & Group IV subjects.',
+    name: 'Phase 2: Second Revision (Compression & Speed)',
+    subTitle: 'Oct 19 – Nov 9 (22 Days)',
+    startDate: '2026-10-19',
+    endDate: '2026-11-09',
+    daysCount: 22,
+    focus: 'Speed revision across Group III & Group IV subjects: CLC, SFM, DT, SCM, CFR, CMAD, IDT, ES + Group IV Mock.',
     color: 'from-emerald-600 to-teal-800',
     badge: 'Speed & Compression'
   },
   {
-    id: 4,
-    name: 'Phase 4: Third Revision',
-    subTitle: 'Nov 13 – Nov 29 (17 Days)',
-    startDate: '2026-11-13',
+    id: 3,
+    name: 'Phase 3: Third Revision (Exam-Ready Rotation)',
+    subTitle: 'Nov 10 – Nov 29 (20 Days)',
+    startDate: '2026-11-10',
     endDate: '2026-11-29',
-    daysCount: 17,
-    focus: 'Exam-Ready mode. Stop reading every line; rely on short notes, formula book, mistake book & PYQs.',
+    daysCount: 20,
+    focus: 'Exam-Ready mode. Stop reading every line; rely on short notes, formula book, mistake book & simulated PYQs.',
     color: 'from-amber-600 to-orange-800',
     badge: 'Exam-Oriented'
   },
   {
-    id: 5,
-    name: 'Phase 5: Final 10 Days',
+    id: 4,
+    name: 'Phase 4: Final 10 Days (Rapid Sprint)',
     subTitle: 'Nov 30 – Dec 9 (10 Days)',
     startDate: '2026-11-30',
     endDate: '2026-12-09',
     daysCount: 10,
-    focus: 'No new chapters. Recall → Solve → Correct → Recall again. Subject-wise rapid sprint.',
+    focus: 'No new chapters. 1 day per subject: Recall → Solve → Correct → Recall again.',
     color: 'from-purple-600 to-rose-800',
     badge: 'Final Sprint'
   },
   {
-    id: 6,
+    id: 5,
     name: 'December 10 Onward: Exam Mode 🔥',
     subTitle: 'Dec 10+ (Exams Begin)',
     startDate: '2026-12-10',
@@ -220,8 +209,8 @@ export const PHASE_2_SUBJECT_SCHEDULE = [
   {
     subjectId: 'CLC' as SubjectId,
     title: 'Corporate Laws',
-    dateRange: 'September 26 – October 1',
-    days: 6,
+    dateRange: 'September 20 – September 26',
+    days: 7,
     dailyHours: '9.5 – 11 Hours',
     breakdown: [
       { title: 'Detailed Revision', hours: 4.5, category: 'detailed' as const, description: 'Core provisions, chapter-wise in-depth study' },
@@ -236,8 +225,8 @@ export const PHASE_2_SUBJECT_SCHEDULE = [
   {
     subjectId: 'SFM' as SubjectId,
     title: 'Strategic Financial Management',
-    dateRange: 'October 2 – October 7',
-    days: 6,
+    dateRange: 'September 27 – October 3',
+    days: 7,
     dailyHours: '9 Hours',
     breakdown: [
       { title: 'Core Concepts', hours: 2.0, category: 'concepts' as const, description: 'Concept logic, derivatives, forex, portfolio theory, valuations' },
@@ -251,7 +240,7 @@ export const PHASE_2_SUBJECT_SCHEDULE = [
   {
     subjectId: 'DT' as SubjectId,
     title: 'Direct Tax + International Tax',
-    dateRange: 'October 8 – October 14',
+    dateRange: 'October 4 – October 10',
     days: 7,
     dailyHours: '10 Hours',
     breakdown: [
@@ -266,7 +255,7 @@ export const PHASE_2_SUBJECT_SCHEDULE = [
   {
     subjectId: 'SCM' as SubjectId,
     title: 'Strategic Cost Management',
-    dateRange: 'October 15 – October 21',
+    dateRange: 'October 11 – October 17',
     days: 7,
     dailyHours: '9 Hours',
     breakdown: [
@@ -281,7 +270,7 @@ export const PHASE_2_SUBJECT_SCHEDULE = [
   {
     subjectId: 'TEST_G3' as SubjectId,
     title: 'GROUP III FULL TEST + BUFFER DAY',
-    dateRange: 'October 22',
+    dateRange: 'October 18',
     days: 1,
     dailyHours: '8 – 9 Hours',
     breakdown: [
@@ -295,28 +284,28 @@ export const PHASE_2_SUBJECT_SCHEDULE = [
 ];
 
 export const PHASE_3_SCHEDULE = [
-  { dates: 'Oct 23–25', days: 3, subject: 'CLC', name: 'Corporate Laws', focus: 'Fast compression, section numbers, penalties, critical case laws' },
-  { dates: 'Oct 26–28', days: 3, subject: 'SFM', name: 'Strategic Financial Management', focus: 'Core formula drill + tough numerical patterns & speed' },
-  { dates: 'Oct 29–Nov 1', days: 4, subject: 'DT', name: 'Direct Tax + International Tax', focus: 'Computation speed, transfer pricing, TDS/TCS, amendments' },
-  { dates: 'Nov 2–4', days: 3, subject: 'SCM', name: 'Strategic Cost Management', focus: 'Key case models, decision making, variances, cost formulas' },
-  { dates: 'Nov 5–7', days: 3, subject: 'CFR', name: 'Corporate Financial Reporting', focus: 'Ind AS standards, consolidation, business combination' },
-  { dates: 'Nov 8–9', days: 2, subject: 'CMAD', name: 'Cost & Management Audit', focus: 'Audit standards, CARO, Cost Audit rules, clean answer structure' },
-  { dates: 'Nov 10', days: 1, subject: 'IDT', name: 'Indirect Taxation', focus: 'GST input tax credit, valuation, customs duty calculations' },
-  { dates: 'Nov 11', days: 1, subject: 'ES', name: 'Elective & SPM', focus: 'High-yield conceptual coverage, scoring areas & cases' },
-  { dates: 'Nov 12', days: 1, subject: 'TEST_G4', name: 'Full Group IV Test + Analysis', focus: 'Simulated 3-hour exam test + in-depth error autopsy' }
+  { dates: 'Oct 19–21', days: 3, subject: 'CLC', name: 'Corporate Laws', focus: 'Fast compression, section numbers, penalties, critical case laws' },
+  { dates: 'Oct 22–24', days: 3, subject: 'SFM', name: 'Strategic Financial Management', focus: 'Core formula drill + tough numerical patterns & speed' },
+  { dates: 'Oct 25–28', days: 4, subject: 'DT', name: 'Direct Tax + International Tax', focus: 'Computation speed, transfer pricing, TDS/TCS, amendments' },
+  { dates: 'Oct 29–31', days: 3, subject: 'SCM', name: 'Strategic Cost Management', focus: 'Key case models, decision making, variances, cost formulas' },
+  { dates: 'Nov 1–3', days: 3, subject: 'CFR', name: 'Corporate Financial Reporting', focus: 'Ind AS standards, consolidation, business combination' },
+  { dates: 'Nov 4–5', days: 2, subject: 'CMAD', name: 'Cost & Management Audit', focus: 'Audit standards, CARO, Cost Audit rules, clean answer structure' },
+  { dates: 'Nov 6–7', days: 2, subject: 'IDT', name: 'Indirect Taxation', focus: 'GST input tax credit, valuation, customs duty calculations' },
+  { dates: 'Nov 8', days: 1, subject: 'ES', name: 'Elective & SPM', focus: 'High-yield conceptual coverage, scoring areas & cases' },
+  { dates: 'Nov 9', days: 1, subject: 'TEST_G4', name: 'Full Group IV Test + Analysis', focus: 'Simulated 3-hour exam test + in-depth error autopsy' }
 ];
 
 export const PHASE_4_ROTATION = [
-  { dates: 'Nov 13–14', days: 2, subject: 'CLC', name: 'Corporate Laws' },
-  { dates: 'Nov 15–16', days: 2, subject: 'SFM', name: 'Strategic Financial Management' },
-  { dates: 'Nov 17–19', days: 3, subject: 'DT', name: 'Direct Tax + International Tax' },
-  { dates: 'Nov 20–21', days: 2, subject: 'SCM', name: 'Strategic Cost Management' },
-  { dates: 'Nov 22–23', days: 2, subject: 'CFR', name: 'Corporate Financial Reporting' },
-  { dates: 'Nov 24–25', days: 2, subject: 'CMAD', name: 'Cost & Management Audit' },
-  { dates: 'Nov 26', days: 1, subject: 'IDT', name: 'Indirect Taxation' },
-  { dates: 'Nov 27', days: 1, subject: 'ES', name: 'Elective & SPM' },
-  { dates: 'Nov 28', days: 1, subject: 'TEST_G3', name: 'Group III Mixed Revision' },
-  { dates: 'Nov 29', days: 1, subject: 'TEST_G4', name: 'Group IV Mixed Revision' }
+  { dates: 'Nov 10–11', days: 2, subject: 'CLC', name: 'Corporate Laws' },
+  { dates: 'Nov 12–13', days: 2, subject: 'SFM', name: 'Strategic Financial Management' },
+  { dates: 'Nov 14–16', days: 3, subject: 'DT', name: 'Direct Tax + International Tax' },
+  { dates: 'Nov 17–18', days: 2, subject: 'SCM', name: 'Strategic Cost Management' },
+  { dates: 'Nov 19–20', days: 2, subject: 'CFR', name: 'Corporate Financial Reporting' },
+  { dates: 'Nov 21–22', days: 2, subject: 'CMAD', name: 'Cost & Management Audit' },
+  { dates: 'Nov 23–24', days: 2, subject: 'IDT', name: 'Indirect Taxation' },
+  { dates: 'Nov 25', days: 1, subject: 'ES', name: 'Elective & SPM' },
+  { dates: 'Nov 26–27', days: 2, subject: 'TEST_G3', name: 'Group III Mixed Simulation Mocks' },
+  { dates: 'Nov 28–29', days: 2, subject: 'TEST_G4', name: 'Group IV Mixed Simulation Mocks' }
 ];
 
 export const PHASE_5_FINAL_10_DAYS = [
@@ -384,82 +373,82 @@ export const DEFAULT_SUBJECT_PROGRESS = [
   {
     subjectId: 'CLC' as SubjectId,
     name: 'Corporate Laws',
-    status: 'In Progress' as const,
-    hoursCompleted: 24,
+    status: 'Not Started' as const,
+    hoursCompleted: 0,
     targetHours: 60,
-    confidencePercent: 65,
-    notes: 'Section notebook created; Focus on Sec 135, 149, 185, 186.',
-    lastUpdated: '2026-09-18'
+    confidencePercent: 0,
+    notes: 'Starting tomorrow: Section Notebook + 5-Question Framework for Company Law.',
+    lastUpdated: '2026-09-20'
   },
   {
     subjectId: 'SFM' as SubjectId,
     name: 'Strategic Financial Management',
-    status: 'In Progress' as const,
-    hoursCompleted: 18,
+    status: 'Not Started' as const,
+    hoursCompleted: 0,
     targetHours: 60,
-    confidencePercent: 55,
-    notes: 'Forex problems ongoing; calculator speed drills daily.',
-    lastUpdated: '2026-09-18'
+    confidencePercent: 0,
+    notes: 'Formula Book + Calculator speed drills and handwritten problem solving.',
+    lastUpdated: '2026-09-20'
   },
   {
     subjectId: 'DT' as SubjectId,
     name: 'Direct Tax + International Tax',
     status: 'Not Started' as const,
-    hoursCompleted: 12,
+    hoursCompleted: 0,
     targetHours: 70,
-    confidencePercent: 50,
-    notes: 'TDS/TCS and International tax transfer pricing scheduled.',
-    lastUpdated: '2026-09-18'
+    confidencePercent: 0,
+    notes: 'DT Mistake Book + Practical computations & International Taxation.',
+    lastUpdated: '2026-09-20'
   },
   {
     subjectId: 'SCM' as SubjectId,
     name: 'Strategic Cost Management',
     status: 'Not Started' as const,
-    hoursCompleted: 10,
+    hoursCompleted: 0,
     targetHours: 65,
-    confidencePercent: 50,
-    notes: 'Standard costing variances + Transfer pricing chapters.',
-    lastUpdated: '2026-09-18'
+    confidencePercent: 0,
+    notes: 'Cost models & Standard Costing / Variance problem practice.',
+    lastUpdated: '2026-09-20'
   },
   {
     subjectId: 'CFR' as SubjectId,
     name: 'Corporate Financial Reporting',
     status: 'Not Started' as const,
-    hoursCompleted: 5,
+    hoursCompleted: 0,
     targetHours: 50,
-    confidencePercent: 40,
-    notes: 'Ind AS consolidation & financial instruments review.',
-    lastUpdated: '2026-09-18'
+    confidencePercent: 0,
+    notes: 'Ind AS standards & business combinations.',
+    lastUpdated: '2026-09-20'
   },
   {
     subjectId: 'CMAD' as SubjectId,
     name: 'Cost & Management Audit',
     status: 'Not Started' as const,
-    hoursCompleted: 4,
+    hoursCompleted: 0,
     targetHours: 40,
-    confidencePercent: 40,
-    notes: 'Cost audit rules & CARO 2020 clauses.',
-    lastUpdated: '2026-09-18'
+    confidencePercent: 0,
+    notes: 'Audit standards, CARO 2020 and Cost Audit rules.',
+    lastUpdated: '2026-09-20'
   },
   {
     subjectId: 'IDT' as SubjectId,
     name: 'Indirect Taxation (GST & Customs)',
     status: 'Not Started' as const,
-    hoursCompleted: 6,
+    hoursCompleted: 0,
     targetHours: 45,
-    confidencePercent: 45,
-    notes: 'Input Tax Credit (ITC) conditions & valuation rules.',
-    lastUpdated: '2026-09-18'
+    confidencePercent: 0,
+    notes: 'Input Tax Credit (ITC) conditions, valuation rules & Customs.',
+    lastUpdated: '2026-09-20'
   },
   {
     subjectId: 'ES' as SubjectId,
     name: 'Elective & SPM',
     status: 'Not Started' as const,
-    hoursCompleted: 4,
+    hoursCompleted: 0,
     targetHours: 35,
-    confidencePercent: 45,
-    notes: 'Strategic performance measurement models.',
-    lastUpdated: '2026-09-18'
+    confidencePercent: 0,
+    notes: 'Strategic Performance Management case studies & high-yield areas.',
+    lastUpdated: '2026-09-20'
   }
 ];
 
